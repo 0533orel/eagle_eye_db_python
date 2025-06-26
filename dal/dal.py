@@ -4,18 +4,15 @@ from models.agent import Agent
 connection = SQLConnection("eagleeyedb")
 
 class DALAgent:
-    def add(self):
+    def add(self, full_name, code_name, location):
         try:
             conn = connection.open_connection()
             cursor = conn.cursor()
             query = "INSERT INTO agents (code_name, real_name, location) VALUES (%s, %s, %s)"
-            full_name = input("Enter full name: ")
-            code_name = input("Enter code name: ")
-            location = input("Enter location: ")
             value = (code_name, full_name, location)
             cursor.execute(query, value)
             conn.commit()
-            print("Agent added successfully")
+            print("\nAgent added successfully")
         except Exception as ex:
             print(ex)
         finally:
@@ -43,6 +40,74 @@ class DALAgent:
         finally:
             connection.close_connection(conn)
 
+    def update_code_name(self, id, code_name):
+        try:
+            conn = connection.open_connection()
+            cursor = conn.cursor()
+            query = "UPDATE agents SET code_name = %s WHERE id = %s"
+            value = (code_name, id)
+            cursor.execute(query, value)
+            conn.commit()
+            print("\nCode name updated successfully.")
+        except Exception as ex:
+            print("Error:", ex)
+        finally:
+            connection.close_connection(conn)
 
+    def update_name(self,id, name):
+        try:
+            conn = connection.open_connection()
+            cursor = conn.cursor()
+            query = "UPDATE agents SET real_name = %s WHERE id = %s"
+            value = (name, id)
+            cursor.execute(query, value)
+            conn.commit()
+            print("\nName updated successfully.")
+        except Exception as ex:
+            print("Error:", ex)
+        finally:
+            connection.close_connection(conn)
+
+    def update_location(self, id, location):
+        try:
+            conn = connection.open_connection()
+            cursor = conn.cursor()
+            query = "UPDATE agents SET location = %s WHERE id = %s"
+            value = (location, id)
+            cursor.execute(query, value)
+            conn.commit()
+            print("\nLocation updated successfully.")
+        except Exception as ex:
+            print("Error:", ex)
+        finally:
+            connection.close_connection(conn)
+
+    def update_status(self, id, status):
+        try:
+            conn = connection.open_connection()
+            cursor = conn.cursor()
+            query = "UPDATE agents SET status = %s WHERE id = %s"
+            value = (status, id)
+            cursor.execute(query, value)
+            conn.commit()
+            print("\nStatus updated successfully.")
+        except Exception as ex:
+            print("Error:", ex)
+        finally:
+            connection.close_connection(conn)
+
+    def update_missions_completed(self, id):
+        try:
+            conn = connection.open_connection()
+            cursor = conn.cursor()
+            query = "UPDATE agents SET missions_completed = missions_completed + 1 WHERE id = %s"
+            value = (id,)
+            cursor.execute(query, value)
+            conn.commit()
+            print("\nMissions completed updated successfully.")
+        except Exception as ex:
+            print("Error:", ex)
+        finally:
+            connection.close_connection(conn)
 
 
