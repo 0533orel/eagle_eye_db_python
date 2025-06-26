@@ -139,4 +139,19 @@ class DALAgent:
         finally:
             connection.close_connection(conn)
 
+    def delete(self, id):
+        try:
+            conn = connection.open_connection()
+            cursor = conn.cursor()
+            query = "DELETE FROM agents WHERE id = %s"
+            cursor.execute(query, (id,))
+            conn.commit()
+            print("\nAgent deleted successfully.")
+        except Exception as ex:
+            print("Error during deletion:", ex)
+        finally:
+            connection.close_connection(conn)
+
+
+
 
