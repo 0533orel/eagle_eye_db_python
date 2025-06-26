@@ -8,7 +8,7 @@ class DALAgent:
         try:
             conn = connection.open_connection()
             cursor = conn.cursor()
-            query = ("INSERT INTO agents (code_name, real_name, location) VALUES (%s, %s, %s)")
+            query = "INSERT INTO agents (code_name, real_name, location) VALUES (%s, %s, %s)"
             full_name = input("Enter full name: ")
             code_name = input("Enter code name: ")
             location = input("Enter location: ")
@@ -20,4 +20,29 @@ class DALAgent:
             print(ex)
         finally:
             connection.close_connection(conn)
+
+    def get_agent_by_id(self, id):
+        try:
+            conn = connection.open_connection()
+            cursor = conn.cursor()
+            query = "SELECT * FROM agents WHERE id = %s"
+            cursor.execute(query, (id,))
+            result = cursor.fetchone()
+            agent = Agent(
+                id=result[0],
+                code_name=result[1],
+                real_name=result[2],
+                location=result[3],
+                status=result[4],
+                missions_completed=result[5]
+            )
+            return agent
+        except Exception as ex:
+            print("Error:", ex)
+            return None
+        finally:
+            connection.close_connection(conn)
+
+
+
 
