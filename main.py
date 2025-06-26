@@ -1,8 +1,11 @@
+"""Command‑line interface entry point for Eagle Eye DB agent management system."""
+
 from dal.agent_dal import DALAgent
+from dal.agent_dal import SQLConnection
 from validation import get_id, get_name, get_status
-from models.agent import Agent
 
 def update_menu(dal, id):
+    """update_menu function."""
     while True:
         print("\n--- UPDATE AGENT ---")
         print("1. Code name")
@@ -41,7 +44,9 @@ def update_menu(dal, id):
             print("\nInvalid choice. Please select between 1-5.")
 
 def main_menu():
-    dal = DALAgent()
+    """main_menu function."""
+    conn = SQLConnection("eagleeyedb")
+    dal = DALAgent(conn)
     while True:
         print("\n===== EAGLE EYE - AGENT CONTROL MENU =====")
         print("1. View all agents")
