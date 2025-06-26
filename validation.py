@@ -1,4 +1,7 @@
+"""Console input validation helper functions used by Eagle Eye DB CLI."""
+
 def get_id(dal):
+    """get_id function."""
     while True:
         try:
             id = int(input("\nEnter agent id: "))
@@ -12,6 +15,7 @@ def get_id(dal):
 
 
 def get_name():
+    """get_name function."""
     while True:
         full_name = input("\nEnter full name: ").strip()
         is_valid = True
@@ -26,6 +30,7 @@ def get_name():
 
 
 def get_status():
+    """get_status function."""
     statuses = {
         1: "active",
         2: "injured",
