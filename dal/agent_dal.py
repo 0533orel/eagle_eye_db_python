@@ -35,8 +35,37 @@ class DALAgent:
             )
             return agent
         except Exception as ex:
-            print("Error:", ex)
+            #print("Error:", ex)
             return None
+        finally:
+            connection.close_connection(conn)
+
+    def get_agents(self):
+        try:
+            conn = connection.open_connection()
+            cursor = conn.cursor()
+            query = "SELECT * FROM agents"
+            cursor.execute(query)
+            results = cursor.fetchall()
+
+            agents = []
+            for row in results:
+                agent = Agent(
+                    id=row[0],
+                    code_name=row[1],
+                    real_name=row[2],
+                    location=row[3],
+                    status=row[4],
+                    missions_completed=row[5]
+                )
+                agents.append(agent)
+
+            return agents
+
+        except:
+            print("There are no agents")
+            return []
+
         finally:
             connection.close_connection(conn)
 
