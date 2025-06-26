@@ -1,4 +1,4 @@
-from db_connection import SQLConnection
+from dal.db_connection import SQLConnection
 from models.agent import Agent
 
 connection = SQLConnection("eagleeyedb")
@@ -34,8 +34,8 @@ class DALAgent:
                 missions_completed=result[5]
             )
             return agent
-        except Exception as ex:
-            #print("Error:", ex)
+        except:
+            print("The agent not found")
             return None
         finally:
             connection.close_connection(conn)
