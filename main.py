@@ -7,7 +7,10 @@ from validation import get_id, get_name, get_status
 def update_menu(dal, id):
     """update_menu function."""
     while True:
+        agent = dal.get_agent_by_id(id)
+
         print("\n--- UPDATE AGENT ---")
+        print(agent,"\n")
         print("1. Code name")
         print("2. Name")
         print("3. Location")
@@ -48,6 +51,7 @@ def main_menu():
     conn = SQLConnection("eagleeyedb")
     dal = DALAgent(conn)
     while True:
+
         print("\n===== EAGLE EYE - AGENT CONTROL MENU =====")
         print("1. View all agents")
         print("2. Add new agent")
